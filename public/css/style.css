@@ -88,3 +88,8 @@
     opacity: 0.2;
     background-color: white;
 }
+
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+}

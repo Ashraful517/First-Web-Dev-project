@@ -1,27 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>
-<body>
+<% layout("/layouts/boilerplate") %>
+<br><br>
+<div class="row">
+    <div class="col-8 offset-2">
     <h2>Edit Listing</h2>
     <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
-        <input type="text" name="title" value="<%= listing.title %>">
-        <br><br>
-        <input type="text" name="description" value="<%= listing.description %>">
-        <br><br>
-        <input type="text" name="image" value="<%= listing.image.url %>">
-        <br><br>
-        <input type="number" name="price" value="<%= listing.price %>">
-        <br><br>
-        <input type="text" name="country" value="<%= listing.country %>">
-        <br><br>
-        <input type="text" name="location" value="<%= listing.location %>">
-        <br><br>
-        <button type="submit">Update</button>
-    </form>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" value="<%= listing.title %>">
+        </div>
 
-</body>
-</html>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" class="form-control" value="<%= listing.description %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image URL</label>
+            <input type="text" name="image" class="form-contol" value="<%= listing.image.url %>">
+        </div>
+        
+        <div class="row">
+        <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" name="price" class="form-control" value="<%= listing.price %>">
+        </div>
+
+        <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" name="country" class="form-control" value="<%= listing.country %>">
+        </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-lable">Location</label>
+            <input type="text" name="location" class="form-control" value="<%= listing.location %>">
+        </div>
+
+        <button class="btn btn-dark edit-btn" type="submit">Update</button>
+    </form>
+    </div>
+</div>
+<br><br>

@@ -7,7 +7,6 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
  
-
 main().catch(err => console.log(err));
 
 async function main() {
@@ -60,7 +59,7 @@ app.post("/listings",async(req,res)=>{
         price,
         country,
         location
-    })
+    });
 
     await newListing.save();
     res.redirect("/listings");
@@ -73,7 +72,7 @@ app.put("/listings/:id", async (req, res) => {
     const { id } = req.params;
     let { title, description, image, price, country, location } = req.body;
 
-    // Update listing
+    // Update listing 
     await Listing.findByIdAndUpdate(id, {
         title,
         description,
