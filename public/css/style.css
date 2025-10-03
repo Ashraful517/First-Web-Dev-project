@@ -7,6 +7,10 @@
       flex-direction: column;
       min-height: 100vh;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
 .container{
     flex: 1;
@@ -25,35 +29,39 @@
 .nav-link{
     color: #222222 !important;
 }
-
-.f-info-links a{
-    text-decoration:none !important ;
+.f-info-links a {
+    text-decoration: none !important;
     margin: 0 10px;
 }
-.f-info-links a:hover{
-    text-decoration:underline !important ;
+
+.f-info-links a:hover {
+    text-decoration: underline !important;
 }
+
 .f-info-links,
-.f-info-socials{
+.f-info-socials {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* justify-items: center; */
 }
-.f-info-socials{
-    font-size: 1.2rem;
 
+.f-info-socials {
+    font-size: 1.2rem;
 }
-.f-info{
+
+.f-info {
+    width: 100%;                /* ✅ span full width */
     text-align: center;
     display: flex;
-    height: 8rem;
-    background-color: beige;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: beige;
+    padding: 1rem;
+    margin-top: auto;           /* ✅ pushes footer to bottom */
 }
+
 
 .card {
   border: none !important;
@@ -92,4 +100,17 @@
 .add-btn{
     background-color: #fe424d !important;
     border: none !important;
+}
+
+/* show page */
+
+.show-img{
+    height: 30vh !important;
+}
+
+.btn-delete,
+.btn-edit{
+    display: flex !important;
+    flex-direction: row !important;
+    display: inline-block !important;
 }
