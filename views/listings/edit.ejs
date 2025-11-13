@@ -3,15 +3,17 @@
 <div class="row">
     <div class="col-8 offset-2">
     <h2>Edit Listing</h2>
-    <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" value="<%= listing.title %>">
+            <input type="text" name="title" class="form-control" value="<%= listing.title %>" required>
+            <div class="invalid-feedback">Enter a attractive title</div>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <input type="text" name="description" class="form-control" value="<%= listing.description %>">
+            <input type="text" name="description" class="form-control" value="<%= listing.description %>" required>
+            <div class="invalid-feedback">Describe your property shortly</div>
         </div>
 
         <div class="mb-3">
@@ -22,18 +24,21 @@
         <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input type="number" name="price" class="form-control" value="<%= listing.price %>">
+            <input type="number" name="price" class="form-control" value="<%= listing.price %>" required>
+            <div class="invalid-feedback">Enter a valid price</div>
         </div>
 
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
-            <input type="text" name="country" class="form-control" value="<%= listing.country %>">
+            <input type="text" name="country" class="form-control" value="<%= listing.country %>" required>
+            <div class="invalid-feedback">Enter the country name</div>
         </div>
         </div>
 
         <div class="mb-3">
             <label for="location" class="form-lable">Location</label>
-            <input type="text" name="location" class="form-control" value="<%= listing.location %>">
+            <input type="text" name="location" class="form-control" value="<%= listing.location %>" required>
+            <div class="invalid-feedback">Enter the currect location</div>
         </div>
 
         <button class="btn btn-dark edit-btn" type="submit">Update</button>

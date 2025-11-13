@@ -46,7 +46,9 @@ app.get("/listings/:id",async(req,res)=>{
 
 });
 
-app.post("/listings",async(req,res)=>{
+app.post("/listings",async(req,res,next)=>{
+    try{
+
     const { title, description, image, price, country, location } = req.body;
 
     const newListing = new Listing({
@@ -60,6 +62,9 @@ app.post("/listings",async(req,res)=>{
         country,
         location
     });
+    }catch(err){
+        next(err);
+    }
 
     await newListing.save();
     res.redirect("/listings");
@@ -88,7 +93,7 @@ app.put("/listings/:id", async (req, res) => {
     res.redirect(`/listings/${id}`); // after update, redirect to show page
 });
 
-
+//edit route
 app.get("/listings/:id/edit", async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
@@ -118,6 +123,11 @@ app.delete("/listings/:id", async (req, res) => {
 //     console.log("sampleListing");
 //     res.send("Successful testing");
 // });
+
+app.use((err,req,res,next)=>{
+    res.send("something went wrong");
+    next();
+})
 
 app.listen(8080,()=>{
     console.log("server is listening!");

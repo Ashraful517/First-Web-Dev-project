@@ -5,37 +5,39 @@
  <div class="col-8 offset-2">
 
     <h3>create a new listings</h3>
-    <form method="POST" action="/listings">
+    <form method="POST" action="/listings" class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input name="title" placeholder="title" class="form-control" type="text">
+            <input name="title" placeholder="title" class="form-control" type="text" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <input name="description" placeholder="description" class="form-control">
+            <input name="description" placeholder="description" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>
             <input name="image" placeholder="enter image URL" class="form-control">
         </div>
-        <div class="row">
 
-        
+        <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input name="price" placeholder="enter price" class="form-control" type="number">
+            <input name="price" placeholder="enter price" class="form-control" type="number" required>
+            <div class="invalid-feedback">Enter a valid price</div>
         </div>
        
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
-            <input name="country" placeholder="Bangladesh" class="form-control" type="text">
+            <input name="country" placeholder="Bangladesh" class="form-control" type="text" required>
+            <div class="invalid-feedback">Enter a valid country name</div>
         </div>
         </div>
 
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input name="location" placeholder="Rajshahi,BD" class="form-control" type="text">
+            <input name="location" placeholder="Rajshahi,BD" class="form-control" type="text" required>
+            <div class="invalid-feedback">Enter the correct location</div>
         </div>
 
 
