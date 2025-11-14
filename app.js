@@ -28,6 +28,17 @@ app.get("/",(req,res)=>{
     res.send("request is sent")
 });
 
+
+const validateListing  = (req,res,next)=>{
+    const error = listingSchema.validate(req.body);
+    // console.log(result);
+    if(error){
+        let errMsg = error.details.map((el)=> el.message).join(",");  // all error message separated with comma.
+        throw new expressError(400,errMsg);
+    }else{
+        next();
+    }
+}
 app.get("/listings",async(req,res)=>{
     const allListings = await Listing.find({});
     res.render("listings/index",{allListings}); 
@@ -49,12 +60,8 @@ app.get("/listings/:id",async(req,res)=>{
 
 });
 
-app.post("/listings",wrapAsync(async(req,res,next)=>{
-    const result = listingSchema.validate(req.body);
-    // console.log(result);
-    if(result.error){
-        throw new expressError(400,'Something went wrong!');
-    }
+app.post("/listings",validateListing,wrapAsync(async(req,res,next)=>{
+
     const { title, description, image, price, country, location } = req.body;
     const newListing = new Listing({
         title,
@@ -76,8 +83,7 @@ app.post("/listings",wrapAsync(async(req,res,next)=>{
 );
 
 //update route
-// UPDATE route
-app.put("/listings/:id",wrapAsync( async (req, res) => {
+app.put("/listings/:id",validateListing,wrapAsync( async (req, res) => {
     const { id } = req.params;
     let { title, description, image, price, country, location } = req.body;
 
