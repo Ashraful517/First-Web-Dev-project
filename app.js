@@ -5,6 +5,9 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js");
+const expressError = require("./utils/expressError.js");
+const {listingSchema} = require("./schema.js");
 
  
 main().catch(err => console.log(err));
@@ -46,34 +49,35 @@ app.get("/listings/:id",async(req,res)=>{
 
 });
 
-app.post("/listings",async(req,res,next)=>{
-    try{
-
+app.post("/listings",wrapAsync(async(req,res,next)=>{
+    const result = listingSchema.validate(req.body);
+    // console.log(result);
+    if(result.error){
+        throw new expressError(400,'Something went wrong!');
+    }
     const { title, description, image, price, country, location } = req.body;
-
     const newListing = new Listing({
         title,
         description,
-        image: {
-            filename: "listingimage",   // default or generated
-            url: image                 // user-provided input
-        },
         price,
         country,
         location
     });
-    }catch(err){
-        next(err);
-    }
+    if (image && image.trim() !== "") {
+    newListing.image = {
+        filename: "listingimage",
+        url: image,
+    };
+}
 
     await newListing.save();
     res.redirect("/listings");
-
-});
+    })
+);
 
 //update route
 // UPDATE route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id",wrapAsync( async (req, res) => {
     const { id } = req.params;
     let { title, description, image, price, country, location } = req.body;
 
@@ -91,22 +95,23 @@ app.put("/listings/:id", async (req, res) => {
     });
 
     res.redirect(`/listings/${id}`); // after update, redirect to show page
-});
+})
+);
 
 //edit route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit",wrapAsync( async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit", { listing });
-});
+}));
 
 
 //delete route
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id",wrapAsync( async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");   // after deleting, go back to all listings
-});
+}));
 
 
 
@@ -123,11 +128,19 @@ app.delete("/listings/:id", async (req, res) => {
 //     console.log("sampleListing");
 //     res.send("Successful testing");
 // });
+app.all('/*path', (req, res, next) => {
+    next(new expressError(404, "This page is not found"));
+});
 
 app.use((err,req,res,next)=>{
-    res.send("something went wrong");
-    next();
+    let {statusCode = 600, message = "somehthing went wrong!"} = err;
+    //res.status(statusCode).send(message);
+    res.status(statusCode).render("error.ejs",{message})
 })
+// app.use((err,req,res,next)=>{
+//     res.send("something went wrong");       //this was made for wrapAsync in 4th video
+//     next();
+// }) 
 
 app.listen(8080,()=>{
     console.log("server is listening!");
