@@ -2,12 +2,14 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
 const {listingSchema} = require("./schema.js");
+
 
  
 main().catch(err => console.log(err));
@@ -38,7 +40,19 @@ const validateListing  = (req,res,next)=>{
     }else{
         next();
     }
-}
+};
+
+const validateReview  = (req,res,next)=>{
+    const error = reviewSchema.validate(req.body);
+    // console.log(result);
+    if(error){
+        let errMsg = error.details.map((el)=> el.message).join(",");  // all error message separated with comma.
+        throw new expressError(400,errMsg);
+    }else{
+        next();
+    }
+};
+
 app.get("/listings",async(req,res)=>{
     const allListings = await Listing.find({});
     res.render("listings/index",{allListings}); 
@@ -117,6 +131,18 @@ app.delete("/listings/:id",wrapAsync( async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");   // after deleting, go back to all listings
+}));
+
+//Review Post Route
+app.post("/listings/:id/reviews",validateReview, wrapAsync(async(req,res)=>{
+    const listing = await Listing.findById(req.params.id);
+    const newReview = new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    console.log("new review saved");
+    res.redirect(`/listings/${listing._id}`);
 }));
 
 
