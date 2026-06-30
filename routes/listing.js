@@ -26,11 +26,7 @@ router.get("/",async(req,res)=>{
 
 //new route
 //new route is above of the show route cause in show route we have :id. If we put new route under it, 
-<<<<<<< HEAD
 //...the machine thinks the word'new' as an id.
-=======
-//...the machine thinks the word 'new' as an id.
->>>>>>> origin/main
 router.get("/new",(req,res)=>{
     res.render("listings/new.ejs")
 });
@@ -61,20 +57,14 @@ router.post("/",validateListing,wrapAsync(async(req,res,next)=>{
 }
 
     await newListing.save();
-<<<<<<< HEAD
     req.flash("success", "New Listing Created");
     console.log(req.session);
-=======
->>>>>>> origin/main
     res.redirect("/listings");
     })
 );
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/main
 //update route
 router.put("/:id",validateListing,wrapAsync( async (req, res) => {
     const { id } = req.params;

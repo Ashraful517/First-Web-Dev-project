@@ -8,11 +8,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
 const expressError = require("./utils/expressError.js");
-<<<<<<< HEAD
 const session = require("express-session");
 const flash = require("connect-flash");
-=======
->>>>>>> origin/main
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 
@@ -30,7 +27,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
-<<<<<<< HEAD
 console.log("APP STARTED");
 
 
@@ -45,16 +41,11 @@ const sessionOptions = {
     }
 };
 
-=======
-
-
->>>>>>> origin/main
 app.get("/",(req,res)=>{
     res.send("request is sent")
 });
 
 
-<<<<<<< HEAD
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -65,8 +56,6 @@ app.use((req,res, next)=>{
 })
 
 
-=======
->>>>>>> origin/main
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews)

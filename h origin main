@@ -1,0 +1,11 @@
+*   [33mf0ee402[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;32mbackup-before-merge[m[33m)[m Resolve merge conflicts; keep local changes
+[31m|[m[32m\[m  
+[31m|[m * [33madc2fb1[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Add files via upload
+[31m|[m * [33m94483cd[m first 2 videos from Day-46. About Restructering Listing and reviews
+[31m|[m * [33m7466b71[m create deleting process for listing with it's reviews. for this we used post middleware inside listing.js file
+[31m|[m * [33m6a49663[m Comment style and delete comment
+[31m|[m * [33m84d6e99[m Add review and comment section is show.js
+[31m|[m * [33m13c7b7a[m Updated app.js
+[31m|[m * [33ma063490[m Add expressError,WrapAsync error.js and schema.js file
+[31m|[m * [33m204e1d4[m Add Validation and Try-Catch error handling
+[31m|[m * [33m1331aa2[m Add style in show.ejs file
